@@ -2,7 +2,7 @@
 
 namespace EveMagic.Data
 {
-    public class behavior
+    public class Behavior
     {
     }
 }

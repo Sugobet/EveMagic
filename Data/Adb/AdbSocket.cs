@@ -14,10 +14,15 @@
 
         byte[] _buffer = new byte[65536];
 
+        public string Address { get; set; }
+        public int Port { get; set; }
+
         public AdbSocket(string adbServerHost, int adbServerPort)
         {
             _tcpClient = new TcpClient(adbServerHost, adbServerPort);
             _tcpStream = _tcpClient.GetStream();
+            this.Address = adbServerHost;
+            this.Port = adbServerPort;
         }
 
         public void Dispose()

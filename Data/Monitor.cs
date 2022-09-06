@@ -40,6 +40,7 @@ namespace EveMagic.Data.Monitor
             path = "/EveMagic";
 #endif
 
+            // !!!!!!!!!!!!!!!!!!! Have a bug
             if (!Directory.Exists(path))
             {
                 Directory.CreateDirectory(path);

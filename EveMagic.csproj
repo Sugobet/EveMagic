@@ -109,4 +109,6 @@
 	  <None Update="C:\Users\sugob\.nuget\packages\paddleocrsharp\2.0.3\build\PaddleOCRLib\mkldnn.dll" Link="Platforms\Windows\mkldnn.dll" />
 	</ItemGroup>
 
+	<ProjectExtensions><VisualStudio><UserProperties XamarinHotReloadDebuggerTimeoutExceptionEveMagicHideInfoBar="True" /></VisualStudio></ProjectExtensions>
+
 </Project>

@@ -67,6 +67,7 @@
             WriteString($"{command.Length:X04}");
             WriteString(command);
 
+            // var response = ReadString(4);
             var response = ReadString(4);
 
             switch (response)

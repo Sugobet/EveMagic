@@ -1,5 +1,9 @@
 ﻿
 
+using Android.Content;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace EveMagic.Data.Ocr
 {
     public interface ICloudOcr
@@ -48,6 +52,25 @@ namespace EveMagic.Data.Ocr
             }
 
             return "FileNotFound";
+        }
+
+        public async Task<string> GetResponse(byte[] fileByte)
+        {
+            if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
+            {
+                return "NotInternet";
+            }
+
+            string res = await this._ocr.Request(fileByte);
+
+            if (res == "")
+            {
+                return "NotResponse";
+            }
+
+            JObject json = (JObject)JsonConvert.DeserializeObject(res);
+            
+            return json["data"].ToString();
         }
 
 

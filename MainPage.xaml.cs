@@ -10,7 +10,6 @@ namespace EveMagic;
 
 public partial class MainPage : ContentPage
 {
-    EveMagicOcr ocr = new(new HttpClient(), "http://192.168.1.224:8501");
 
     public MainPage()
 	{
@@ -24,12 +23,17 @@ public partial class MainPage : ContentPage
 
     async void OnOn(object o, EventArgs e)
     {
+        IinsideOcr ocr = new(new HttpClient());
         AdbSocket adb = new("127.0.0.1", 5037);
-        Monitor monitor = new("kuanggong1", adb, ocr, "192.168.1.3:5667");
+        CloudOcr cloudOcr = new(new HttpClient(), ocr);
+        Monitor monitor = new("kuanggong1", adb, cloudOcr, "192.168.1.3:5667");
         monitor.GetScreen();
-        byte[] byt = monitor.Crop(10, 20, 100, 200);
-        File.WriteAllBytes("/EveMagic/kuanggong1.png", byt);
-        img.Source = ImageSource.FromFile("/EveMagic/kuanggong1.png");
+        byte[] image = File.ReadAllBytes("/sdcard/DCIM/EveMagic/kuanggong1.png");
+        byte[] byt = monitor.Crop(image, 10, 20, 100, 200);
+        string str = cloudOcr.GetResponse(byt).Result;
+        lab.Text = str;
+        MemoryStream stream = new(byt);
+        img.Source = ImageSource.FromStream(()=>stream);
         return;
 
 

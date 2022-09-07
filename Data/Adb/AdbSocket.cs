@@ -77,9 +77,8 @@
                 case "FAIL":
                     var message = ReadHexString();
                     throw new AdbException(message);
-                default:
-                    throw new AdbInvalidResponseException(response);
             }
+            return response;
         }
 
         public string SendSyncCommand(string command, string parameter, bool readResponse = true)

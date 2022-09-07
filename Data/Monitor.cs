@@ -3,6 +3,8 @@ using Android.Graphics;
 
 using EveMagic.Data.Adb;
 using EveMagic.Data.Ocr;
+using System.Net.WebSockets;
+using Xamarin.Google.Crypto.Tink.Subtle;
 
 
 namespace EveMagic.Data.Monitor
@@ -27,19 +29,45 @@ namespace EveMagic.Data.Monitor
             this.DeviceAddress = deviceAddress;
         }
 
-        public void GetScreen()
+        public byte[] GetScreen()
         {
-            // this.Adb.SendCommand($"exec-out:screencap -p > /sdcard/DCIM/EveMagic/{this.DeviceName}.png");
-            this.Adb.SendCommand($"host:transport:{this.DeviceAddress}");
-            string path; ;
-            path = "/sdcard/DCIM/EveMagic";
+            string response = this.Adb.SendCommand($"exec:screencap -p");
+            var total = 0;
+            var bytes = new byte[65536];
+            using MemoryStream memoryStream = new();
 
-            if (!Directory.Exists(path))
+            while (true)
             {
-                Directory.CreateDirectory(path);
+                if (response.Equals("DONE"))
+                {
+                    break;
+                }
+                else if (!response.Equals("DATA"))
+                {
+                    throw new AdbInvalidResponseException(response);
+                }
+                var size = this.Adb.ReadInt32();
+                this.Adb.Read(bytes, size);
+                memoryStream.Write(bytes);
+                total += size;
+
+                response = this.Adb.ReadString(4);
             }
 
-            this.Adb.SendCommand($"shell,v2,TERM=xterm-256color,raw:screencap -p {path}/{this.DeviceName}.png");
+            return memoryStream.ToArray();
+
+
+            // this.Adb.SendCommand($"exec-out:screencap -p > /sdcard/DCIM/EveMagic/{this.DeviceName}.png");
+            //this.Adb.SendCommand($"host:transport:{this.DeviceAddress}");
+            //string path; ;
+            //path = "/sdcard/DCIM/EveMagic";
+
+            //if (!Directory.Exists(path))
+            //{
+            //    Directory.CreateDirectory(path);
+            //}
+
+            //this.Adb.SendCommand($"shell,v2,TERM=xterm-256color,raw:screencap -p {path}/{this.DeviceName}.png");
         }
 
         public byte[] Crop(byte[] image, int x, int y, int widht, int height)

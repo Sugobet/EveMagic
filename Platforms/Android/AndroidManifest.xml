@@ -1,16 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:installLocation="internalOnly" package="com.sugobet.evemagic">
 	<application android:networkSecurityConfig="@xml/network_security_config" android:allowBackup="true" android:icon="@mipmap/appicon" android:roundIcon="@mipmap/appicon_round" android:supportsRtl="true" requestLegacyExternalStorage="true" android:label="EveMagic">
-		<service android:name=".MyAccessibilityService" android:label="EveMagic" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
-			<intent-filter>
-				<action android:name="android.accessibilityservice.AccessibilityService" />
-			</intent-filter>
-			<meta-data android:name="android.accessibilityservice" android:resource="@xml/accessibility_service_config" />
-		</service>
+
 	</application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-	<uses-sdk android:minSdkVersion="24" android:targetSdkVersion="30" />
 </manifest>

@@ -23,7 +23,7 @@ namespace EveMagic.Data.Ocr
         }
 
 
-        public async Task<string> Request(byte[] byteFile)
+        public string Request(byte[] byteFile)
         {
             MultipartFormDataContent content = new();
 
@@ -32,7 +32,7 @@ namespace EveMagic.Data.Ocr
             string res = "";
             try
             {
-                res = (await this._httpClient.PostAsync(Url, content)).Content.ReadAsStringAsync().Result;
+                res = this._httpClient.PostAsync(Url, content).Result.Content.ReadAsStringAsync().Result;
             }
             catch (Exception)
             {

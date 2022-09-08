@@ -1,8 +1,6 @@
 ﻿
-using Android.App;
 using Android.Graphics;
 
-using EveMagic.Data.Adb;
 using EveMagic.Data.Ocr;
 
 
@@ -23,9 +21,9 @@ namespace EveMagic.Data.Monitor
 
         public async Task<Stream> GetScreen()
         {
-            if (Screenshot.Default.IsCaptureSupported)
+            if (Screenshot.IsCaptureSupported)
             {
-                IScreenshotResult screen = await Screenshot.Default.CaptureAsync();
+                IScreenshotResult screen = await Screenshot.CaptureAsync();
                 Stream stream = await screen.OpenReadAsync();
                 return stream;
             }
@@ -45,10 +43,11 @@ namespace EveMagic.Data.Monitor
         }
 
 
-        public void IfHaveEnemy(byte[] image, string num1, string num2)
+        public byte[] IfHaveEnemy(byte[] image, string num1, string num2)
         {
             byte[] red = this.Crop(image, 854, 509, 36, 20);
-            string res = this._ocr.GetResponse(red).Result;
+            string res = this._ocr.GetResponse(red);
+            return red;
         }
     }
 }

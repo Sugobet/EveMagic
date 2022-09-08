@@ -8,7 +8,7 @@ namespace EveMagic.Data.Ocr
 {
     public interface ICloudOcr
     {
-        public Task<string> Request(byte[] byteFile);
+        public string Request(byte[] byteFile);
     }
 
 
@@ -43,7 +43,7 @@ namespace EveMagic.Data.Ocr
             if (File.Exists(fileName))
             {
                 byte[] data = File.ReadAllBytes(fileName);
-                string res = await this._ocr.Request(data);
+                string res = this._ocr.Request(data);
                 if (res == "")
                 {
                     return "NotResponse";
@@ -54,14 +54,14 @@ namespace EveMagic.Data.Ocr
             return "FileNotFound";
         }
 
-        public async Task<string> GetResponse(byte[] fileByte)
+        public string GetResponse(byte[] fileByte)
         {
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
             {
                 return "NotInternet";
             }
 
-            string res = await this._ocr.Request(fileByte);
+            string res = this._ocr.Request(fileByte);
 
             if (res == "")
             {

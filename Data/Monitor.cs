@@ -3,8 +3,6 @@ using Android.Graphics;
 
 using EveMagic.Data.Adb;
 using EveMagic.Data.Ocr;
-using System.Net.WebSockets;
-using Xamarin.Google.Crypto.Tink.Subtle;
 
 
 namespace EveMagic.Data.Monitor
@@ -27,25 +25,25 @@ namespace EveMagic.Data.Monitor
             this.AdbSocketAddress = $"{adb.Address}:{adb.Port}";
             this.DeviceName = deviceName;
             this.DeviceAddress = deviceAddress;
+
+            this.Adb.SendCommand($"host:transport:192.168.1.3:5667");
         }
 
         public byte[] GetScreen()
         {
-            string response = this.Adb.SendCommand($"exec:screencap -p");
+            this.Adb.SendCommand($"exec:screencap '-p'");
+            string response = "DATA";
             var total = 0;
             var bytes = new byte[65536];
             using MemoryStream memoryStream = new();
 
             while (true)
             {
-                if (response.Equals("DONE"))
+                if (response.Equals("CLSE"))
                 {
                     break;
                 }
-                else if (!response.Equals("DATA"))
-                {
-                    throw new AdbInvalidResponseException(response);
-                }
+
                 var size = this.Adb.ReadInt32();
                 this.Adb.Read(bytes, size);
                 memoryStream.Write(bytes);

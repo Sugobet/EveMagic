@@ -15,7 +15,7 @@
 		<ApplicationTitle>EveMagic</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.evemagic</ApplicationId>
+		<ApplicationId>com.sugobet.evemagic</ApplicationId>
 		<ApplicationIdGuid>90B93B13-7056-47B7-A3AB-4EDF5753C456</ApplicationIdGuid>
 
 		<!-- Versions -->
@@ -77,6 +77,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Platforms\Android\Resources\xml\accessibility_service_config.xml" />
 	  <None Remove="Platforms\Android\Resources\xml\network_security_config.xml" />
 	  <None Remove="Resources\Images\test1.png" />
 	</ItemGroup>

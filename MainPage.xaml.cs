@@ -1,11 +1,24 @@
 ﻿
 
 
+using Android.AccessibilityServices;
+using Android.Views.Accessibility;
 using EveMagic.Data.Adb;
 using EveMagic.Data.Ocr;
+using System;
 using Monitor = EveMagic.Data.Monitor.Monitor;
-
 namespace EveMagic;
+
+class MyAccessibilityService : AccessibilityService
+{
+    public override void OnAccessibilityEvent(AccessibilityEvent? accessibilityEvent)
+    {
+    }
+
+    public override void OnInterrupt()
+    {
+    }
+}
 
 
 public partial class MainPage : ContentPage
@@ -23,18 +36,6 @@ public partial class MainPage : ContentPage
 
     async void OnOn(object o, EventArgs e)
     {
-        IinsideOcr ocr = new(new HttpClient());
-        AdbSocket adb = new("127.0.0.1", 5037);
-        CloudOcr cloudOcr = new(new HttpClient(), ocr);
-        Monitor monitor = new("kuanggong1", adb, cloudOcr, "192.168.1.3:5667");
-        monitor.GetScreen();
-        byte[] image = File.ReadAllBytes("/sdcard/DCIM/EveMagic/kuanggong1.png");
-        byte[] byt = monitor.Crop(image, 10, 20, 100, 200);
-        string str = cloudOcr.GetResponse(byt).Result;
-        lab.Text = str;
-        MemoryStream stream = new(byt);
-        img.Source = ImageSource.FromStream(()=>stream);
-        return;
 
 
         // img.Source = ImageSource.FromFile(fname);

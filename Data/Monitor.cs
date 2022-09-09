@@ -4,27 +4,33 @@ using Android.Graphics;
 
 using EveMagic.Data.Ocr;
 using System.Diagnostics;
+using System.Drawing;
+using Image = System.Drawing.Image;
 
-namespace EveMagic.Data.Monitor
+namespace EveMagic.Data
 {
     public class Monitor
     {
         CloudOcr _ocr;
         public string DeviceName { get; set; }
+        public string DeviceAddress { get; set; }
+
+        string _path = "C:/EveMagic";
 
 
-        public Monitor(string deviceName, CloudOcr ocr)
+        public Monitor(string deviceName, string deviceAddress, CloudOcr ocr)
         {
             this._ocr = ocr;
             this.DeviceName = deviceName;
+            this.DeviceAddress = deviceAddress;
 
         }
 
         public string AdbCommand(string command)
         {
-            string cmd = "/EveMagic/adb/adb.exe";
+            string cmd = $"{this._path}/adb/adb.exe";
 
-            using Process p = new Process();
+            using Process p = new();
             p.StartInfo.FileName = cmd;
             p.StartInfo.Arguments = command;
             p.StartInfo.UseShellExecute = false;
@@ -52,32 +58,49 @@ namespace EveMagic.Data.Monitor
 
 
         }
+#else
+
+        public void GetScreen()
+        {
+            string file = $"C:/EveMagic/{this.DeviceName}.png";
+
+            this.AdbCommand($"-s {this.DeviceAddress} exec-out screencap -p > {file}");
+        }
 #endif
 
 #if ANDROID
         public byte[] Crop(byte[] image, int x, int y, int widht, int height)
         {
 
-            using Bitmap bm = BitmapFactory.DecodeByteArray(image, 0, image.Length);
-            using Bitmap new_bm = Bitmap.CreateBitmap(bm, x, y, widht, height);
+            using Android.Graphics.Bitmap bm = BitmapFactory.DecodeByteArray(image, 0, image.Length);
+            using Android.Graphics.Bitmap new_bm = Android.Graphics.Bitmap.CreateBitmap(bm, x, y, widht, height);
 
             using MemoryStream ms = new();
-            new_bm.Compress(Bitmap.CompressFormat.Png, 100, ms);
+            new_bm.Compress(Android.Graphics.Bitmap.CompressFormat.Png, 100, ms);
 
             return ms.ToArray();
 
         }
+#else
+        public byte[] Crop(byte[] image, int x1, int y1, int width, int height)
+        {
+            Rectangle region = new(x1, y1, width, height);
+            using Bitmap result = new(region.Width, region.Height);
+            using Graphics graphics = Graphics.FromImage(result);
+            using MemoryStream memoryStream = new(image);
+            using Image img = Image.FromStream(memoryStream);
+            graphics.DrawImage(img, new Rectangle(x1, y1, region.Width, region.Height), region, GraphicsUnit.Pixel);
+            using MemoryStream ms = new();
+            result.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
+            return ms.ToArray();
+        }
 #endif
 
-        public bool IfHaveEnemy(byte[] image, string num1, string num2)
+        public byte[] IfHaveEnemy(byte[] image, string num1, string num2)
         {
-#if ANDROID
-            // Will to do
             byte[] red = this.Crop(image, 854, 509, 36, 20);
             string res = this._ocr.GetResponse(red);
-            return false;
-#endif
-            return false;
+            return red;
         }
     }
 }

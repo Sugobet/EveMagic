@@ -3,12 +3,33 @@
     x:Class="EveMagic.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:EveMagic"
-    Shell.FlyoutBehavior="Disabled">
+    xmlns:local="clr-namespace:EveMagic.Pages"
+    FlyoutBehavior="Flyout">
 
-    <ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate local:MainPage}"
-        Route="MainPage" />
+    <Shell.FlyoutHeader>
+        <Grid HeightRequest="100">
+            <Image Source="shell_header.jpg"/>
+        </Grid>
+
+    </Shell.FlyoutHeader>
+
+    <TabBar>
+        <Tab Title="主页" Icon="main_home.png">
+            <ShellContent Title="主页" ContentTemplate="{DataTemplate local:MainPage}"/>
+            <ShellContent Title="关于" ContentTemplate="{DataTemplate local:AboutPage}"/>
+        </Tab>
+
+        <Tab Title="预警" Icon="warn.png">
+            <ShellContent Title="预警设置" ContentTemplate="{DataTemplate local:WarnPage}"/>
+        </Tab>
+
+        <Tab Title="挖矿" Icon="wk.png">
+            <ShellContent Title="挖矿设置" ContentTemplate="{DataTemplate local:WkPage}"/>
+        </Tab>
+
+        <Tab Title="耕地" Icon="sg.png">
+            <ShellContent Title="耕地设置" ContentTemplate="{DataTemplate local:SgPage}"/>
+        </Tab>
+    </TabBar>
 
 </Shell>

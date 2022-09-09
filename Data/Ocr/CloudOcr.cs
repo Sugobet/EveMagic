@@ -32,7 +32,7 @@ namespace EveMagic.Data.Ocr
         }
 
 
-        public async  Task<string> GetResponse(string fileName)
+        public string GetResponse(string fileName)
         {
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
             {

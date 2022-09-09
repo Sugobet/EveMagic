@@ -2,13 +2,11 @@
 using EveMagic.Data;
 using EveMagic.Data.Ocr;
 
-namespace EveMagic;
+namespace EveMagic.Pages;
 
 
 public partial class MainPage : ContentPage
 {        
-    int i = 1;
-
     public MainPage()
 	{
 
@@ -20,13 +18,15 @@ public partial class MainPage : ContentPage
     }
 
 
-    async void OnOn(object o, EventArgs e)
+    void OnOn(object o, EventArgs e)
     {
-        IinsideOcr ocr = new(new HttpClient());
-        CloudOcr cloudOcr = new(new HttpClient(), ocr);
-        Data.Monitor.Monitor monitor = new("test1", cloudOcr);
-        lab.Text = $"{monitor.AdbCommand("devices")}    {++i}";
-
+        //IinsideOcr ocr = new(new HttpClient());
+        //CloudOcr cloudOcr = new(new HttpClient(), ocr);
+        //Data.Monitor monitor = new("test1", "emulator-5556", cloudOcr);
+        //monitor.GetScreen();
+        //byte[] byt = File.ReadAllBytes("/EveMagic/1.png");
+        //MemoryStream ms = new(byt);
+        //img.Source = ImageSource.FromStream(() => ms);
         // img.Source = ImageSource.FromFile(fname);
         return;
         // byte[] file = await File.ReadAllBytesAsync("/sdcard/DCIM/Alipay/1111.jpg");

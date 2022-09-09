@@ -1,31 +1,17 @@
 ﻿
-
-
-using Android.AccessibilityServices;
-using Android.Views;
-using Android.Views.Accessibility;
+using EveMagic.Data;
 using EveMagic.Data.Ocr;
-using Java.IO;
-using Monitor = EveMagic.Data.Monitor.Monitor;
 
 namespace EveMagic;
 
-class MyAccessibilityService : AccessibilityService
-{
-    public override void OnAccessibilityEvent(AccessibilityEvent? accessibilityEvent)
-    {
-    }
-
-    public override void OnInterrupt()
-    {
-    }
-}
-
 
 public partial class MainPage : ContentPage
-{
+{        
+    int i = 1;
+
     public MainPage()
 	{
+
 		InitializeComponent();
 
         // Permissions.RequestAsync<Permissions.StorageRead>().Wait();
@@ -36,27 +22,10 @@ public partial class MainPage : ContentPage
 
     async void OnOn(object o, EventArgs e)
     {
-        SurfaceControl.Screenshot();
-
-        return;
-        Thread.Sleep(7000);
-        HttpClient httpClient = new();
-        IinsideOcr iinsideOcr = new(httpClient);
-        CloudOcr cloudOcr = new(httpClient, iinsideOcr);
-
-        Monitor monitor = new("yvjingji1", cloudOcr);
-        Stream stream = monitor.GetScreen().Result;
-
-        byte[] bytes = new byte[stream.Length];
-        stream.Read(bytes, 0, bytes.Length);
-        stream.Seek(0, SeekOrigin.Begin);
-
-        //byte[] by = monitor.IfHaveEnemy(bytes, "", "");
-        //MemoryStream memoryStream = new(by);
-        byte[] by = monitor.Crop(bytes, 200, 200, 100, 100);
-        MemoryStream memoryStream = new(by);
-        img.Source = ImageSource.FromStream(() => memoryStream);
-
+        IinsideOcr ocr = new(new HttpClient());
+        CloudOcr cloudOcr = new(new HttpClient(), ocr);
+        Data.Monitor.Monitor monitor = new("test1", cloudOcr);
+        lab.Text = $"{monitor.AdbCommand("devices")}    {++i}";
 
         // img.Source = ImageSource.FromFile(fname);
         return;

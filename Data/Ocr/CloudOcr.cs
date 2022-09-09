@@ -1,6 +1,5 @@
 ﻿
 
-using Android.Content;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 

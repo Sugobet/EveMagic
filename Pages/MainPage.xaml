@@ -4,6 +4,9 @@
              x:Class="EveMagic.Pages.MainPage">
 
 
-    <Button HeightRequest="50" Text="click me" Clicked="OnOn"/>
+    <VerticalStackLayout>
+        <Button HeightRequest="50" Text="click me" Clicked="OnOn"/>
+        <Image x:Name="img"/>
+    </VerticalStackLayout>
 
 </ContentPage>

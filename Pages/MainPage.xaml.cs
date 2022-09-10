@@ -2,6 +2,8 @@
 
 using EveMagic.Data;
 using EveMagic.Data.Ocr;
+using EveMagic.Pages;
+
 
 namespace EveMagic.Pages;
 
@@ -19,9 +21,8 @@ public partial class MainPage : ContentPage
     }
 
 
-    void OnOn(object o, EventArgs e)
+    async void OnOn(object o, EventArgs e)
     {
-
 
         //IinsideOcr ocr = new(new HttpClient());
         //CloudOcr cloudOcr = new(new HttpClient(), ocr);
@@ -38,4 +39,3 @@ public partial class MainPage : ContentPage
         // lab.Text = res;
     }
 }
-

@@ -1,4 +1,5 @@
 ﻿
+
 using EveMagic.Data;
 using EveMagic.Data.Ocr;
 
@@ -20,6 +21,8 @@ public partial class MainPage : ContentPage
 
     void OnOn(object o, EventArgs e)
     {
+
+
         //IinsideOcr ocr = new(new HttpClient());
         //CloudOcr cloudOcr = new(new HttpClient(), ocr);
         //Data.Monitor monitor = new("test1", "emulator-5556", cloudOcr);

@@ -23,6 +23,17 @@ public partial class MainPage : ContentPage
 
     async void OnOn(object o, EventArgs e)
     {
+/*        Thread t1 = new(new ThreadStart(() =>
+        {
+        Android.App.Instrumentation inst = new();
+            inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(2, Android.OS.SystemClock.UptimeMillis(), Android.Views.KeyEventActions.Down, Android.Views.Keycode.Power, 0), Android.Views.KeyEventActions.Down));
+            inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(2, Android.OS.SystemClock.UptimeMillis(), Android.Views.KeyEventActions.Down, Android.Views.Keycode.VolumeDown, 0), Android.Views.KeyEventActions.Down));
+            inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(Android.OS.SystemClock.UptimeMillis(), Android.OS.SystemClock.UptimeMillis(), Android.Views.KeyEventActions.Up, Android.Views.Keycode.VolumeDown, 0), Android.Views.KeyEventActions.Up));
+            inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(Android.OS.SystemClock.UptimeMillis(), Android.OS.SystemClock.UptimeMillis(), Android.Views.KeyEventActions.Up, Android.Views.Keycode.Power, 0), Android.Views.KeyEventActions.Up));
+
+        }));
+        t1.Start();*/
+        
 
         //IinsideOcr ocr = new(new HttpClient());
         //CloudOcr cloudOcr = new(new HttpClient(), ocr);

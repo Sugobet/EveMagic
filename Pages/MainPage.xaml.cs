@@ -26,13 +26,23 @@ public partial class MainPage : ContentPage
         Thread t1 = new(new ThreadStart(() =>
         {
             Android.App.Instrumentation inst = new();
-            inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(2, Android.OS.SystemClock.UptimeMillis(), Android.Views.KeyEventActions.Down, Android.Views.Keycode.Power, 0), Android.Views.KeyEventActions.Down));
-            inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(2, Android.OS.SystemClock.UptimeMillis(), Android.Views.KeyEventActions.Down, Android.Views.Keycode.VolumeDown, 0), Android.Views.KeyEventActions.Down));
-            inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(Android.OS.SystemClock.UptimeMillis(), Android.OS.SystemClock.UptimeMillis(), Android.Views.KeyEventActions.Up, Android.Views.Keycode.VolumeDown, 0), Android.Views.KeyEventActions.Up));
+            inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(1, Android.OS.SystemClock.UptimeMillis(), Android.Views.KeyEventActions.Down, Android.Views.Keycode.Power, 0), Android.Views.KeyEventActions.Down));
+            //inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(1, 0, Android.Views.KeyEventActions.Down, Android.Views.Keycode.VolumeDown, 0), Android.Views.KeyEventActions.Down));
+            //inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(Android.OS.SystemClock.UptimeMillis(), 0, Android.Views.KeyEventActions.Up, Android.Views.Keycode.VolumeDown, 0), Android.Views.KeyEventActions.Up));
             inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(Android.OS.SystemClock.UptimeMillis(), Android.OS.SystemClock.UptimeMillis(), Android.Views.KeyEventActions.Up, Android.Views.Keycode.Power, 0), Android.Views.KeyEventActions.Up));
 
         }));
+
+        Thread t2 = new(new ThreadStart(() =>
+        {
+            Android.App.Instrumentation inst = new();
+            inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(Android.OS.SystemClock.UptimeMillis(), Android.OS.SystemClock.UptimeMillis(), Android.Views.KeyEventActions.Down, Android.Views.Keycode.VolumeDown, 0), Android.Views.KeyEventActions.Down));
+            inst.SendKeySync(Android.Views.KeyEvent.ChangeAction(new Android.Views.KeyEvent(Android.OS.SystemClock.UptimeMillis(), Android.OS.SystemClock.UptimeMillis(), Android.Views.KeyEventActions.Up, Android.Views.Keycode.VolumeDown, 0), Android.Views.KeyEventActions.Up));
+
+        }));
+
         t1.Start();
+        t2.Start();
 
 
         //IinsideOcr ocr = new(new HttpClient());

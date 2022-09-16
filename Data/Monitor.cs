@@ -1,22 +1,19 @@
-﻿#if ANDROID
-using Android.Graphics;
-#endif
-
+﻿
 using EveMagic.Data.Ocr;
+using Java.Lang;
 using System.Diagnostics;
-using System.Drawing;
-using Image = System.Drawing.Image;
+
 
 namespace EveMagic.Data
 {
     public class Monitor
     {
         CloudOcr _ocr;
+        Java.Lang.Process _process;
+        Java.IO.PrintStream _outputStream;
+
         public string DeviceName { get; set; }
         public string DeviceAddress { get; set; }
-
-        string _path = "C:/EveMagic";
-
 
         public Monitor(string deviceName, string deviceAddress, CloudOcr ocr)
         {
@@ -24,55 +21,24 @@ namespace EveMagic.Data
             this.DeviceName = deviceName;
             this.DeviceAddress = deviceAddress;
 
+            this._process = Java.Lang.Runtime.GetRuntime().Exec("su");
+            this._outputStream = new Java.IO.PrintStream(this._process.OutputStream);
+
         }
 
-        public string AdbCommand(string command)
+        public byte[] GetScreen()
         {
-            string cmd = $"{this._path}/adb/adb.exe";
+            string path = $"mnt/sdcard/Pictures/Screenshots/{this.DeviceName}.png";
+            this._outputStream.Println($"screencap -p {path}");
+            this._outputStream.Flush();
 
-            using Process p = new();
-            p.StartInfo.FileName = cmd;
-            p.StartInfo.Arguments = command;
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardInput = true;
-            p.StartInfo.RedirectStandardOutput = true;
-            p.StartInfo.RedirectStandardError = true;
-            p.StartInfo.CreateNoWindow = true;
-            p.Start();
-            string res = p.StandardOutput.ReadToEnd();
-
-            return res;
+            return File.ReadAllBytes(path);
         }
 
-#if ANDROID
-        public async Task<Stream> GetScreen()
-        {
-
-            if (Screenshot.IsCaptureSupported)
-            {
-                IScreenshotResult screen = await Screenshot.CaptureAsync();
-                Stream stream = await screen.OpenReadAsync();
-                return stream;
-            }
-            return null;
-
-
-        }
-#else
-
-        public void GetScreen()
-        {
-            string file = $"C:/EveMagic/{this.DeviceName}.png";
-
-            this.AdbCommand($"-s {this.DeviceAddress} exec-out screencap -p > {file}");
-        }
-#endif
-
-#if ANDROID
         public byte[] Crop(byte[] image, int x, int y, int widht, int height)
         {
 
-            using Android.Graphics.Bitmap bm = BitmapFactory.DecodeByteArray(image, 0, image.Length);
+            using Android.Graphics.Bitmap bm = Android.Graphics.BitmapFactory.DecodeByteArray(image, 0, image.Length);
             using Android.Graphics.Bitmap new_bm = Android.Graphics.Bitmap.CreateBitmap(bm, x, y, widht, height);
 
             using MemoryStream ms = new();
@@ -81,20 +47,7 @@ namespace EveMagic.Data
             return ms.ToArray();
 
         }
-#else
-        public byte[] Crop(byte[] image, int x1, int y1, int width, int height)
-        {
-            Rectangle region = new(x1, y1, width, height);
-            using Bitmap result = new(region.Width, region.Height);
-            using Graphics graphics = Graphics.FromImage(result);
-            using MemoryStream memoryStream = new(image);
-            using Image img = Image.FromStream(memoryStream);
-            graphics.DrawImage(img, new Rectangle(x1, y1, region.Width, region.Height), region, GraphicsUnit.Pixel);
-            using MemoryStream ms = new();
-            result.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
-            return ms.ToArray();
-        }
-#endif
+
 
         public byte[] IfHaveEnemy(byte[] image, string num1, string num2)
         {

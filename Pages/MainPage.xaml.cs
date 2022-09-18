@@ -4,6 +4,8 @@ using EveMagic.Data;
 using EveMagic.Data.Ocr;
 using EveMagic.Pages;
 
+using Org.Opencv;
+using Org.Opencv.Osgi;
 
 namespace EveMagic.Pages;
 

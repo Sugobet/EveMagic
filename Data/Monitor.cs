@@ -1,7 +1,5 @@
 ﻿
 using EveMagic.Data.Ocr;
-using Java.Lang;
-using System.Diagnostics;
 
 
 namespace EveMagic.Data

@@ -4,8 +4,6 @@ using EveMagic.Data;
 using EveMagic.Data.Ocr;
 using EveMagic.Pages;
 
-using Org.Opencv;
-using Org.Opencv.Osgi;
 
 namespace EveMagic.Pages;
 
@@ -24,11 +22,11 @@ public partial class MainPage : ContentPage
 
     void OnOn(object o, EventArgs e)
     {
-
-        IinsideOcr ocr = new(new HttpClient());
+        CnOcr ocr = new(new HttpClient(), "http://192.168.1.6:8501");
         CloudOcr cloudOcr = new(new HttpClient(), ocr);
         Data.Monitor monitor = new("test1", "emulator-5556", cloudOcr);
         byte[] byt = monitor.GetScreen();
+        lab.Text = cloudOcr.GetResponse(byt);
         MemoryStream ms = new(byt);
         img.Source = ImageSource.FromStream(() => ms);
         return;

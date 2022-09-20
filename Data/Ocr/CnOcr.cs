@@ -23,13 +23,13 @@ namespace EveMagic.Data.Ocr
         {
             MultipartFormDataContent content = new();
 
-            content.Add(new ByteArrayContent(byteFile), "image", "1.jpg");
+            content.Add(new ByteArrayContent(byteFile), "image", "1.png");
             string res = "";
             try
             {
                 res = this._httpClient.PostAsync(Url, content).Result.Content.ReadAsStringAsync().Result;
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return res;
             }

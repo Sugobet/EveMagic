@@ -5,8 +5,6 @@ VisualStudioVersion = 17.0.31611.283
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EveMagic", "EveMagic.csproj", "{839D56E6-B87D-4A42-B4E4-540C40D8284C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpencvMaui", "..\OpencvMaui\OpencvMaui.csproj", "{EAEF3299-FF32-443D-926E-13F656105E9C}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,18 +33,6 @@ Global
 		{839D56E6-B87D-4A42-B4E4-540C40D8284C}.Release|x86.ActiveCfg = Release|x86
 		{839D56E6-B87D-4A42-B4E4-540C40D8284C}.Release|x86.Build.0 = Release|x86
 		{839D56E6-B87D-4A42-B4E4-540C40D8284C}.Release|x86.Deploy.0 = Release|x86
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Debug|x64.Build.0 = Debug|Any CPU
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Debug|x86.Build.0 = Debug|Any CPU
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Release|x64.ActiveCfg = Release|Any CPU
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Release|x64.Build.0 = Release|Any CPU
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Release|x86.ActiveCfg = Release|Any CPU
-		{EAEF3299-FF32-443D-926E-13F656105E9C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

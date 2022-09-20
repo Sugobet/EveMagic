@@ -103,10 +103,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\OpencvMaui\OpencvMaui.csproj" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="Pages\WarnPage.xaml.cs">
 	    <DependentUpon>WarnPage.xaml</DependentUpon>
 	  </Compile>

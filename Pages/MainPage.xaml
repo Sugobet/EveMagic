@@ -6,6 +6,7 @@
 
     <VerticalStackLayout>
         <Button HeightRequest="50" Text="click me" Clicked="OnOn"/>
+        <Label x:Name="lab"/>
         <Image x:Name="img"/>
     </VerticalStackLayout>
 

@@ -53,23 +53,23 @@ namespace EveMagic.Data.Ocr
             return "FileNotFound";
         }
 
-        public string GetResponse(byte[] fileByte)
+        public JToken GetResponse(byte[] fileByte)
         {
             if (Connectivity.Current.NetworkAccess != NetworkAccess.Internet)
             {
-                return "NotInternet";
+                return null;
             }
 
             string res = this._ocr.Request(fileByte);
 
             if (res == "")
             {
-                return "NotResponse";
+                return null;
             }
 
             JObject json = (JObject)JsonConvert.DeserializeObject(res);
             
-            return json["data"].ToString();
+            return json["results"];
         }
 
 

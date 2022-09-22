@@ -29,7 +29,7 @@ namespace EveMagic.Data.Ocr
             {
                 res = this._httpClient.PostAsync(Url, content).Result.Content.ReadAsStringAsync().Result;
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return res;
             }

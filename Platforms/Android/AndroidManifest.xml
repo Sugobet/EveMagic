@@ -8,5 +8,6 @@
 	<uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.READ_FRAME_BUFFER" />
+	<uses-permission android:name="android.permission.INJECT_EVENTS"/>
 	<uses-sdk android:targetSdkVersion="31" android:minSdkVersion="24" />
 </manifest>

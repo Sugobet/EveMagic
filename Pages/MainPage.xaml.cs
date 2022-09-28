@@ -10,8 +10,6 @@ namespace EveMagic.Pages;
 
 public partial class MainPage : ContentPage
 {
-    string n1 = "0";
-    string n2 = "0";
 
     public MainPage()
 	{
@@ -29,11 +27,12 @@ public partial class MainPage : ContentPage
         CnOcr ocr = new(new HttpClient(), "http://192.168.1.6:8501");
         CloudOcr cloudOcr = new(new HttpClient(), ocr);
         Data.Monitor monitor = new("test1", "emulator-5556", cloudOcr);
+        Data.Behavior behavior = new("test1", "emulator-5556", cloudOcr);
+        string res = "";
         byte[] byt = monitor.GetScreen();
-        var res = monitor.LocalHaveEnemy(byt, n1, n2);
-        this.n1 = res.Item2;
-        this.n2 = res.Item3;
-        lab.Text = $"状态  红  白\n{res}";
+        new Thread(new ThreadStart(() => res = behavior.GetShipName(3000))).Start();
+        lab.Text = res;
+        
 
         /*CnOcr ocr = new(new HttpClient(), "http://192.168.1.6:8501");
         CloudOcr cloudOcr = new(new HttpClient(), ocr);

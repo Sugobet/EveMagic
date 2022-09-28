@@ -36,7 +36,7 @@ namespace EveMagic.Data
         public byte[] Crop(byte[] image, int x, int y, int widht, int height)
         {
 
-            using Android.Graphics.Bitmap bm = Android.Graphics.BitmapFactory.DecodeFile("mnt/sdcard/Pictures/Screenshots/test1.png");
+            using Android.Graphics.Bitmap bm = Android.Graphics.BitmapFactory.DecodeFile($"mnt/sdcard/Pictures/Screenshots/{this.DeviceName}.png");
             using Android.Graphics.Bitmap new_bm = Android.Graphics.Bitmap.CreateBitmap(bm, x, y, widht, height);
 
             using MemoryStream ms = new();
